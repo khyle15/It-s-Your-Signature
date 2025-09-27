@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Client Dashboard - Client Tracker</title>
+    <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+    <div class="dashboard-container">
+        <header class="dashboard-header">
+            <div class="header-content">
+                <h1 class="dashboard-title">Client Dashboard</h1>
+                <div class="header-actions">
+                    <span id="client-welcome"></span>
+                    <button class="btn btn--outline btn--small" onclick="logout()">Logout</button>
+                </div>
+            </div>
+        </header>
+
+        <main class="dashboard-main">
+            <nav class="dashboard-nav">
+                <ul class="nav-list">
+                    <li class="nav-item"><a href="#" class="nav-link active" onclick="showSection('overview')">Dashboard</a></li>
+                    <li class="nav-item"><a href="#" class="nav-link" onclick="showSection('submit')">Submit Request</a></li>
+                    <li class="nav-item"><a href="#" class="nav-link" onclick="showSection('requests')">My Requests</a></li>
+                    <li class="nav-item"><a href="#" class="nav-link" onclick="showSection('profile')">Profile</a></li>
+                </ul>
+            </nav>
+
+            <div class="dashboard-content">
+                <section id="overview-section" class="content-section active">
+                    <h2>Dashboard Overview</h2>
+                    <div class="stats-grid">
+                        <div class="stat-card"><div id="total-my-requests" class="stat-number">0</div><div>Total Requests</div></div>
+                        <div class="stat-card"><div id="pending-my-requests" class="stat-number">0</div><div>Pending</div></div>
+                        <div class="stat-card"><div id="progress-my-requests" class="stat-number">0</div><div>In Progress</div></div>
+                        <div class="stat-card"><div id="completed-my-requests" class="stat-number">0</div><div>Completed</div></div>
+                    </div>
+                </section>
+
+                <section id="submit-section" class="content-section">
+                    <h2>Submit New Request</h2>
+                    <form id="request-submit-form">
+                        <div>
+                            <label>Request Type *</label>
+                            <select id="request-type" class="form-input" required>
+                                <option value="">Select Type</option>
+                                <option value="Website Design">Website Design</option>
+                                <option value="Bug Fix">Bug Fix</option>
+                                <option value="Feature Request">Feature Request</option>
+                                <option value="Support">Support</option>
+                                <option value="Consultation">Consultation</option>
+                                <option value="Maintenance">Maintenance</option>
+                                <option value="Other">Other</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label>Priority *</label>
+                            <select id="request-priority" class="form-input" required>
+                                <option value="">Select Priority</option>
+                                <option value="Low">Low</option>
+                                <option value="Medium">Medium</option>
+                                <option value="High">High</option>
+                                <option value="Urgent">Urgent</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label>Title *</label>
+                            <input type="text" id="request-title" class="form-input" required />
+                        </div>
+                        <div>
+                            <label>Description *</label>
+                            <textarea id="request-description" class="form-input" rows="4" required></textarea>
+                        </div>
+                        <div>
+                            <label>Deadline</label>
+                            <input type="date" id="request-deadline" class="form-input" />
+                        </div>
+                        <div>
+                            <label>Files (simulate)</label>
+                            <input type="text" id="request-files" class="form-input" placeholder="document.pdf, image.jpg" />
+                        </div>
+                        <div>
+                            <label>Notes</label>
+                            <textarea id="request-notes" class="form-input" rows="3"></textarea>
+                        </div>
+                        <button type="submit" class="btn btn--primary">Submit Request</button>
+                    </form>
+                </section>
+
+                <section id="requests-section" class="content-section">
+                    <h2>My Requests</h2>
+                    <div id="client-requests-list"></div>
+                </section>
+
+                <section id="profile-section" class="content-section">
+                    <h2>Profile & Settings</h2>
+                    <div id="client-info"></div>
+                    <h3>Change Password</h3>
+                    <form id="password-change-form">
+                        <div>
+                            <label>Current Password *</label>
+                            <input type="password" id="current-password" class="form-input" required />
+                        </div>
+                        <div>
+                            <label>New Password *</label>
+                            <input type="password" id="new-password" class="form-input" required />
+                            <small>Minimum 6 characters</small>
+                            <div id="password-strength"></div>
+                        </div>
+                        <div>
+                            <label>Confirm New Password *</label>
+                            <input type="password" id="confirm-password" class="form-input" required />
+                        </div>
+                        <button type="submit" class="btn btn--primary">Change Password</button>
+                    </form>
+                </section>
+            </div>
+        </main>
+    </div>
+
+    <script src="client.js"></script>
+</body>
+</html>
