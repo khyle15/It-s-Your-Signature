@@ -1,85 +1,88 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Admin Dashboard - Client Tracker</title>
-    <link rel="stylesheet" href="style.css" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard - ClientTracker</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <div class="dashboard-container">
         <header class="dashboard-header">
-            <div class="header-content">
-                <h1 class="dashboard-title">Admin Dashboard</h1>
-                <div class="header-actions">
-                    <span id="admin-welcome"></span>
-                    <button class="btn btn--outline btn--small" onclick="logout()">Logout</button>
-                </div>
-            </div>
+            <h1>Admin Dashboard</h1>
+            <p id="admin-welcome">Welcome, Admin User</p>
+            <button onclick="logout()" class="btn btn--outline" style="width: auto; float: right;">Logout</button>
         </header>
 
-        <main class="dashboard-main">
-            <nav class="dashboard-nav">
-                <ul class="nav-list">
-                    <li class="nav-item"><a href="#" class="nav-link active" onclick="showSection('overview')">Dashboard</a></li>
-                    <li class="nav-item"><a href="#" class="nav-link" onclick="showSection('clients')">Clients</a></li>
-                    <li class="nav-item"><a href="#" class="nav-link" onclick="showSection('requests')">All Requests</a></li>
-                    <li class="nav-item"><a href="#" class="nav-link" onclick="showSection('profile')">My Profile</a></li>
-                </ul>
-            </nav>
-
-            <div class="dashboard-content">
-                <section id="overview-section" class="content-section active">
-                    <h2>Dashboard Overview</h2>
-                    <div class="stats-grid">
-                        <div class="stat-card"><div id="total-clients" class="stat-number">0</div><div>Total Clients</div></div>
-                        <div class="stat-card"><div id="total-requests" class="stat-number">0</div><div>Total Requests</div></div>
-                        <div class="stat-card"><div id="pending-requests" class="stat-number">0</div><div>Pending</div></div>
-                        <div class="stat-card"><div id="completed-requests" class="stat-number">0</div><div>Completed</div></div>
-                    </div>
-                </section>
-
-                <section id="clients-section" class="content-section">
-                    <h2>Client Management</h2>
-                    <button class="btn btn--primary" onclick="showAddClientModal()">Add New Client</button>
-                    <div id="clients-list"></div>
-                </section>
-
-                <section id="requests-section" class="content-section">
-                    <h2>All Requests</h2>
-                    <select id="client-filter">
-                        <option value="all">All Clients</option>
-                    </select>
-                    <select id="status-filter">
-                        <option value="all">All Statuses</option>
-                        <option value="Pending">Pending</option>
-                        <option value="In Progress">In Progress</option>
-                        <option value="Completed">Completed</option>
-                        <option value="On Hold">On Hold</option>
-                    </select>
-                    <div id="requests-list"></div>
-                </section>
-
-                <section id="profile-section" class="content-section">
-                    <h2>My Profile</h2>
-                    <form id="admin-password-change-form">
-                        <div class="form-group">
-                            <label for="current-admin-password">Current Password</label>
-                            <input type="password" id="current-admin-password" class="form-input" required />
-                        </div>
-                        <div class="form-group">
-                            <label for="new-admin-password">New Password</label>
-                            <input type="password" id="new-admin-password" class="form-input" required />
-                        </div>
-                        <div class="form-group">
-                            <label for="confirm-admin-password">Confirm New Password</label>
-                            <input type="password" id="confirm-admin-password" class="form-input" required />
-                        </div>
-                        <button type="submit" class="btn btn--primary">Change Password</button>
-                    </form>
-                </section>
+        <section class="dashboard-stats">
+            <div class="stat-card">
+                <div class="stat-number" id="total-clients">0</div>
+                <div>Total Clients</div>
             </div>
-        </main>
+            <div class="stat-card">
+                <div class="stat-number" id="total-requests">0</div>
+                <div>Total Requests</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number" id="pending-requests">0</div>
+                <div>Pending</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number" id="completed-requests">0</div>
+                <div>Completed</div>
+            </div>
+        </section>
+
+        <section>
+            <h2>Client Management</h2>
+            <button onclick="showAddClientModal()" class="btn btn--primary" style="width: auto; margin-bottom: 20px;">Add New Client</button>
+            <div id="clients-list"></div>
+        </section>
+
+        <section>
+            <h2>All Requests</h2>
+            <div id="requests-list"></div>
+        </section>
+    </div>
+
+    <!-- Add Client Modal -->
+    <div id="add-client-modal" class="modal hidden">
+        <div class="modal-backdrop" onclick="closeAddClientModal()"></div>
+        <div class="modal-content">
+            <button class="modal-close" onclick="closeAddClientModal()">×</button>
+            <h2>Add New Client</h2>
+            
+            <div id="add-client-error" class="error-message hidden"></div>
+            
+            <form id="add-client-form">
+                <div class="form-group">
+                    <label for="client-name">Full Name</label>
+                    <input type="text" id="client-name" name="name" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="client-email">Email</label>
+                    <input type="email" id="client-email" name="email" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="client-company">Company</label>
+                    <input type="text" id="client-company" name="company" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="client-username">Username</label>
+                    <input type="text" id="client-username" name="username" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="client-password">Temporary Password</label>
+                    <input type="password" id="client-password" name="password" required>
+                </div>
+                
+                <button type="submit" class="btn btn--primary">Add Client</button>
+            </form>
+        </div>
     </div>
 
     <script src="admin.js"></script>
